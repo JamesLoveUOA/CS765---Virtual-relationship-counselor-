@@ -31,9 +31,8 @@ def build_advice_dict():
     advice_dict = {0:"Remember that all relationships, even healthy ones, have disagreements and conflicts\nand while you might be feeling dissatisfied with your relationship right now, I don't believe that your relationship exhibits any of the four horsemen.\nI think that continuing to listen to your partner would be as much help as listening to me."
         , 1:"I sense that you have to work on Criticism.\nNext time you feel the urge to raise an issue with your partner, try to keep the blame out of it, and sate how you feel.\nBe direct and resist the urge to mock or insult. Try your best to respect your partner as a person, and be as specific as possible.\nIdeally you want your partner to understand what you are experiencing, and sympathise with you",
           2:"it may feel like you are just letting your partner know how you feel about them, but you have to realize that doing so isn’t helping the situation.\n Next time you feel the urge to say something nasty, try to take a deep breath and smile instead.\n In non-heated situations you should go out of your way to complement your partner, and remind yourself and the two of you do share a love based in mutual appreciation and adoration.\n Cultivate your love, and contempt will slowly erode away.",
-          3: "You seem defensive",
+          3: "While it may feel like you are under attack or overwhelmed by accusations from your partner.\n it is important to approach conflict without immediately taking up a defensive position, listen to your partner and acknowledge that general complaints are often not intended as personal attacks. However defensiveness is often a two way street, and I would encourage your partner to take similar steps",
           4:"I'm sorry I didn't catch that. you are stonewalling"}
-        #write defensive advice.
     return advice_dict
 
 #classify the text

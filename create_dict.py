@@ -22,7 +22,7 @@ def readscript():
         for line in script:
             line = (line.strip('-')).strip()
             horse = int(input(str(line) + "\n"))
-            horses[horse].append(line.split())
+            horses[horse].append(line)
         script.close()
     else:
         print("\n classify lines into horsemen\n **********\n")
@@ -30,7 +30,7 @@ def readscript():
         while enterline != "-1":
             enterline = (enterline).strip()
             horse = int(input(str(enterline) + "\n"))
-            horses[horse].append(enterline.split())
+            horses[horse].append(enterline)
             enterline = input("Enter line of marital disagreement: ")
 
     for i in  range (len(horses)-1):

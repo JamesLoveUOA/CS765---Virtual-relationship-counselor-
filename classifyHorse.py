@@ -3,9 +3,16 @@ import json
 def main():
     advice_dict = build_advice_dict()
     horsemen_dict = readPhrases()
-    
-    horseman_result = initiate_agent(horsemen_dict)
-    give_advice(horseman_result, advice_dict)
+
+    response = "yes"
+    while (response == "yes"):
+        horseman_result = initiate_agent(horsemen_dict)
+        response = give_advice(horseman_result, advice_dict)
+
+    print("Thank you for using the program!")
+
+
+
 
 #reading the dictionary of the four horsemen
 def readPhrases():
@@ -37,13 +44,12 @@ def classify_text(sentence, horsemen_dict):
         for phrase in horsemen_dict[key]:
             #print(phrase)
             if phrase in sentence:
-                return key
+                return int(key)
     return 0
 
 #find the highest horseman in the user list, and also their percentage
 def classify_horseman(horsemen_list):
     #[0, 2, 1, ...]
-
     freqDict = {0:0, 1:0, 2:0, 3:0, 4:0}
 
     #print (horsemen_list)
@@ -68,6 +74,11 @@ def classify_horseman(horsemen_list):
             maxFreq = freq
             horsemanResult = horseman
 
+    #if max horseman has freq 0, then make it 0
+
+    #if maxFreq == 0:
+    #    horsemanResult = 0
+
     length = len(horsemen_list)
 
     percentage = maxFreq/length
@@ -90,7 +101,7 @@ def initiate_agent(horsemen_dict):
     #agent talks to user. "please enter your name and your partner's name" "ask for convo log"
     userName = input("Hi there, what's your name? ")
     partnerName = input("Nice to meet you " + userName + ". What is your partner's name? ")
-    convoFileName = input("Please enter the filename for the conversation log between you and " + partnerName + " you would like me to analyse. ")
+    convoFileName = input("Please enter the filename for the conversation log between you and " + partnerName + " you would like me to analyse: ")
 
     # initiate a list for each person based on user input
     userList = []
@@ -107,8 +118,8 @@ def initiate_agent(horsemen_dict):
                 partnerList.append(sentence.split(":")[1].strip())
 
 
-        #print(userList)
-        #rint(partnerList)
+    #print(userList)
+    #print(partnerList)
         #print(convo)
 
     #initiate a list for each user, where each item corresponds to the horseman in that sentence at that index
@@ -122,6 +133,10 @@ def initiate_agent(horsemen_dict):
     for sentence in partnerList:
         partnerHorsemen.append(classify_text(sentence, horsemen_dict))
 
+    #print("user horseman: ")
+    #print (userHorsemen)
+    #print (partnerHorsemen)
+
     #find the horseman with highest frequency and set that as the result for that person. also calculate the percentage
     userResult = classify_horseman(userHorsemen)
     partnerResult = classify_horseman(partnerHorsemen)
@@ -131,8 +146,11 @@ def initiate_agent(horsemen_dict):
 
     userResult.append(userHorsemanSentence)
     partnerResult.append(partnerHorsemanSentence)
-    print(userResult)
-    print(partnerResult)
+    userResult.append(userName)
+    partnerResult.append(partnerName)
+
+    #print(userResult)
+    #print(partnerResult)
     #result: return a list of lists for each couple, and their horseman result, their percentage of that horseman,
     return (userResult, partnerResult)
     # ((int, float, []),(int, float, [])]
@@ -142,9 +160,50 @@ def initiate_agent(horsemen_dict):
 def give_advice(result, advice_dict):
     user_result = result[0]
     partner_result = result[1]
-    print (user_result)
-    print(partner_result)
 
-    return
+    horseman_dict = {0: "no horseman", 1: "criticism", 2: "contempt", 3: "defensiveness", 4: "stonewalling"}
+
+    user_horseman = horseman_dict[user_result[0]]
+    user_percentage = str(user_result[1] * 100)
+    user_sentences = user_result[2]
+    user_name = user_result[3]
+
+    partner_horseman = horseman_dict[partner_result[0]]
+    partner_percentage = str(partner_result[1] * 100)
+    partner_sentences = partner_result[2]
+    partner_name = partner_result[3]
+    print()
+    print("Hi " + user_name + ", it seems that your most prominent horseman is " + user_horseman + " with a percentage of " + user_percentage + "%")
+    print()
+
+    print("Some of the examples are : ")
+
+    for sentence in user_sentences:
+        print("\"" + sentence + "\"")
+
+    #give advice
+    print("Here are some advice blahblahblah")
+    print()
+
+
+    print("As for your partner " + partner_name + ", it seems that their most prominent horseman is " + partner_horseman + " with a percentage of " + partner_percentage + "%")
+    print()
+
+    print("Some of the examples are : ")
+    for sentence in partner_sentences:
+        print("\"" + sentence + "\"")
+        print()
+
+    print("Here are some advice blahblahblah")
+
+    response = input("Would you like to analyse another dialogue?")
+
+
+
+
+    #print (user_result)
+    #print(partner_result)
+
+    return response
 
 main()

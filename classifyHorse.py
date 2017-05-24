@@ -21,7 +21,7 @@ def readPhrases():
     return data
 
 def build_advice_dict():
-    #{0: general advice etc etc
+    #{0: Remember that all relationships, even healthy ones, have disagreements and conflicts, and while you might be feeling disatisfied with your relationship right now, I don't belive that your relationship exhibts any of the four horsemen.
     # 1: blahblah
     #}
     return []

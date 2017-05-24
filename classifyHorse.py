@@ -28,12 +28,12 @@ def readPhrases():
     return data
 
 def build_advice_dict():
-    advice_dict = {0:"Remember that all relationships, even healthy ones, have disagreements and conflicts, and while you might be feeling dissatisfied with your relationship right now, I don't believe that your relationship exhibits any of the four horsemen. I think that listening to your partner would be as much help as listening to me."
-        , 1:"I sense that you have to work on Criticism. Next time you feel the urge to raise an issue with your partner, try to keep the blame out of it, and sate how you feel. Be direct and resist the urge to mock or insult. Try your best to respect your partner as a person, and be as specific as possible. Ideally you want your partner to understand what you are experiencing, and sympathise with you",
-          2:"it may feel like you are just letting your partner know how you feel about him/her, but you have to realize that doing so isn’t helping the situation. Next time you feel the urge to say something nasty, try to take a deep breath and smile instead. In non-heated situations you should go out of your way to complement your partner, and remind yourself and the two of you do share a love based in mutual appreciation and adoration. Cultivate your love, and contempt will slowly erode away."
-          }
-    # 1: blahblah
-    #}
+    advice_dict = {0:"Remember that all relationships, even healthy ones, have disagreements and conflicts\nand while you might be feeling dissatisfied with your relationship right now, I don't believe that your relationship exhibits any of the four horsemen.\nI think that continuing to listen to your partner would be as much help as listening to me."
+        , 1:"I sense that you have to work on Criticism.\nNext time you feel the urge to raise an issue with your partner, try to keep the blame out of it, and sate how you feel.\nBe direct and resist the urge to mock or insult. Try your best to respect your partner as a person, and be as specific as possible.\nIdeally you want your partner to understand what you are experiencing, and sympathise with you",
+          2:"it may feel like you are just letting your partner know how you feel about them, but you have to realize that doing so isn’t helping the situation.\n Next time you feel the urge to say something nasty, try to take a deep breath and smile instead.\n In non-heated situations you should go out of your way to complement your partner, and remind yourself and the two of you do share a love based in mutual appreciation and adoration.\n Cultivate your love, and contempt will slowly erode away.",
+          3: "You seem defensive",
+          4:"I'm sorry I didn't catch that. you are stonewalling"}
+        #write defensive advice.
     return advice_dict
 
 #classify the text
@@ -161,15 +161,15 @@ def give_advice(result, advice_dict):
     user_result = result[0]
     partner_result = result[1]
 
-    horseman_dict = {0: "no horseman", 1: "criticism", 2: "contempt", 3: "defensiveness", 4: "stonewalling"}
-
+    horseman_dict = {0: "no horseman/all horsemen", 1: "criticism", 2: "contempt", 3: "defensiveness", 4: "stonewalling"}
+    #appears to return no horseman when someone displays all the horsemen.
     user_horseman = horseman_dict[user_result[0]]
-    user_percentage = str(user_result[1] * 100)
+    user_percentage = str(round(user_result[1] * 100))
     user_sentences = user_result[2]
     user_name = user_result[3]
 
     partner_horseman = horseman_dict[partner_result[0]]
-    partner_percentage = str(partner_result[1] * 100)
+    partner_percentage = str(round(partner_result[1] * 100))
     partner_sentences = partner_result[2]
     partner_name = partner_result[3]
     print()
@@ -182,7 +182,8 @@ def give_advice(result, advice_dict):
         print("\"" + sentence + "\"")
 
     #give advice
-    print("Here are some advice blahblahblah")
+    print("Here's some advice:")
+    print(advice_dict[user_result[0]])
     print()
 
 
@@ -194,7 +195,8 @@ def give_advice(result, advice_dict):
         print("\"" + sentence + "\"")
         print()
 
-    print("Here are some advice blahblahblah")
+    print("Here's some advice:")
+    print(advice_dict[partner_result[0]])
 
     response = input("Would you like to analyse another dialogue?")
 
